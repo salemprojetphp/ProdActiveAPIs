@@ -8,7 +8,7 @@ app = Flask(__name__)
 sentiment_model = joblib.load('sentiment_model_fineTuned.pkl')
 vectorizer = joblib.load('vectorizer_fineTuned.pkl')
 
-productivity_model = joblib.load('model.pkl')
+productivity_model = joblib.load('productivity.pkl')
 
 FEATURES = [
     "Gender", "Age", "Years_At_Company", "Monthly_Salary", 
