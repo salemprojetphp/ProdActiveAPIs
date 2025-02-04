@@ -4,7 +4,7 @@ import joblib
 
 app = Flask(__name__)
 
-# Load the model
+# Load the models
 sentiment_model = joblib.load('sentiment_model_fineTuned.pkl')
 vectorizer = joblib.load('vectorizer_fineTuned.pkl')
 
@@ -18,14 +18,14 @@ FEATURES = [
 ]
 
 @app.route('/sentiment', methods=['POST'])
-def predict():
+def predict_sentiment():
     text = request.json['text']
     text_vector = vectorizer.transform([text])
     sentiment = sentiment_model.predict(text_vector)
     return jsonify({'sentiment': 'positive' if sentiment[0] == 1 else 'negative'})
 
 @app.route('/productivity', methods=['POST'])
-def predict():
+def predict_productivity():
     try:
         data = request.get_json()
         input_data = [float(data[feature]) for feature in FEATURES]
@@ -37,4 +37,3 @@ def predict():
     
 if __name__ == '__main__':
     app.run(debug=True)
-
